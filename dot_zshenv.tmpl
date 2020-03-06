@@ -1,0 +1,22 @@
+{{ if eq .chezmoi.os "linux" -}}
+# ZDOTDIR=$HOME/.zsh
+# export PATH=$PATH:$(go env GOPATH)/bin
+export EDITOR=nano
+export HOMEBREW_NO_AUTO_UPDATE=1
+export MAGEFILE_ENABLE_COLOR=1
+# Simplify Installs without sudo by installing a local bin directory for tooling
+export PATH=$PATH:$HOME/.local/bin
+if [[ -d "/usr/local/bin/go/bin/" ]]; then
+    export PATH=/usr/local/bin/go/bin/:$PATH
+    echo -e "✅ go [added to path: /usr/local/bin/go/bin]"
+fi
+
+[ ! -e $HOME/.env ] || source $HOME/.env && echo "✔️️ env: [~/.env]"
+{{ else if eq .chezmoi.os "darwin" -}}
+export EDITOR=nano
+# ZDOTDIR=~/.zsh
+# export PATH=$PATH:$(go env GOPATH)/bin
+export HOMEBREW_NO_AUTO_UPDATE=1
+[ ! -e $HOME/.env ] || source $HOME/.env && echo "✔️️ env: [~/.env]"
+{{ else }}
+{{ end -}}

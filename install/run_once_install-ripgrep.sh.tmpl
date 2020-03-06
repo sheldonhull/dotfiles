@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "linux" -}}
+
+echo "installing ripgrep"
+USER=gruntwork-io
+REPO=fetch
+TAG=">=13.0.0"
+ASSET=ripgrep
+TMP_DIR=/tmp/fetchinstaller
+mkdir -p $TMP_DIR
+fetch --repo "https://github.com/BurntSushi/ripgrep" --tag $TAG --release-asset "${ASSET}.*_amd64.deb" --progress /tmp/fetchinstaller
+MATCHED=$(find $TMP_DIR -name "ripgrep*deb")
+if ! [[ -f "$MATCHED" ]]; then
+    echo "❌can't find ripgrep in /tmp/fetchinstaller dir";
+else
+    sudo dpkg -i $MATCHED
+    # Safer Delete Than RM
+    # find /tmp/fetchinstaller -depth -maxdepth 2 -wholename $TMP_DIR -type d -exec sudo rm -r {} \;
+    rm -rf /tmp/fetchinstaller && echo "🧹 /tmp/fetchinstaller removed"
+    echo "✔️ Ripgrep installed: use rg for invoking"
+fi
+{{ else if eq .chezmoi.os "darwin" -}}
+export HOMEBREW_NO_AUTO_UPDATE=1
+package=ripgrep
+brew list $package &>/dev/null || brew install $package
+echo "✔️ Ripgrep installed: use rg for invoking"
+{{ else }}
+{{ end -}}

@@ -1,0 +1,18 @@
+---
+extends: default
+rules:
+  line-length: disable
+
+  comments:
+    require-starting-space: false
+    ignore-shebangs: true
+    min-spaces-from-content: 1
+  comments-indentation: disable
+  truthy:
+    level: warning
+# For all rules
+ignore: |
+  .markdownlint-cli2.yaml
+  .licenses/
+  .chlog
+  CHANGELOG.md

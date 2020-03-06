@@ -1,0 +1,33 @@
+# Powerline Symbols: https://github.com/ryanoasis/powerline-extra-symbols#glyphs
+#https://vorillaz.github.io/devicons/#/cheat
+
+# Inserts a blank line between shell prompts
+add_newline = true
+
+# Replace the "❯" symbol in the prompt with "➜"
+[character]                            # The name of the module we are configuring is "character"
+success_symbol = "[➜](bold green)"     # The "success_symbol" segment is being set to "➜" with the color "bold green"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = false
+
+[shell]
+# fish_indicator = ""
+powershell_indicator = "_"
+# unknown_indicator = "mystery shell"
+# zsh_indicator = ""
+disabled = false
+
+
+[cmd_duration]
+min_time = 500
+format = "underwent [$duration](bold yellow)"
+
+
+[status]
+style = "bg:blue"
+symbol = "🔴"
+format = '[\[$symbol $common_meaning$signal_name$maybe_int\]]($style) '
+map_symbol = true
+disabled = false

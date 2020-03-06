@@ -1,0 +1,11 @@
+install-chezmoi.sh
+README.md
+README.adoc
+.gitignore
+
+{{ if ne .chezmoi.os "darwin" }}
+Library/Application Support/App/file.conf
+{{ end }}
+{{ if ne .chezmoi.os "linux" }}
+.config/app/file.conf
+{{ end }}

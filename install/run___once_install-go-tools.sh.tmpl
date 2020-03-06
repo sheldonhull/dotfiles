@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+{{ if eq .chezmoi.os "linux" -}}
+set -e
+#short url version
+#sh -c "$(curl -qL  --silent https://git.io/vQhTU)"
+
+export GOROOT="${GOROOT:-/usr/local/bin/go}"
+export GOPATH="${GOPATH:-$HOME/go}"
+
+#### if ! command -v wget &> /dev/null; then echo "ℹ️ installing wget first" && sudo apt-get -yqq update && sudo apt-get -yqq install wget; else echo "✔️ wget dependency exists"; fi
+#### if ! command -v go &> /dev/null
+#### then
+####     echo "ℹ️ go command not detected"
+#### else
+####     [ -d $GOROOT ] && sudo chmod -R +x $GOROOT && echo "🔓 granted access to GOROOT: [$GOROOT]"
+####     echo "ℹ️ go already installed: $(go version)"
+#### fi
+#### if ! command -v go &> /dev/null; then echo "✔️ no go install to cleanup"; else echo "🧹 cleaning up prior install" && wget -q -O - https://raw.githubusercontent.com/canha/golang-tools-install-script/master/goinstall.sh | sudo -E bash -s -- --remove; fi
+#### echo "🤖 installing new version" && wget -q -O - https://raw.githubusercontent.com/canha/golang-tools-install-script/master/goinstall.sh | sudo --preserve-env=GOROOT bash
+
+# https://owenou.com/goup/
+
+##export PATH=/home/codespace/.go/bin:$PATH
+##export PATH=/home/codespace/.go/current/bin:$PATH
+
+
+if ! command -v go &> /dev/null
+then
+    echo "ℹ️ go command not detected, using goup to install"
+    curl -sSf https://raw.githubusercontent.com/owenthereal/goup/master/install.sh | sh -s -- '--skip-prompt'
+    export PATH="$HOME/.go/current/bin:$PATH"
+    export PATH="$(go env GOPATH)/bin:$PATH"
+    export PATH="${GOROOT}/bin:$PATH"
+else
+    echo "✔️ go installed: $(go version)"
+    export PATH="$(go env GOPATH)/bin:$PATH"
+    export PATH="${GOROOT}/bin:$PATH"
+fi
+
+#### [ -d $GOROOT ] && sudo chmod -R +x $GOROOT && echo "🔓 granted access to GOROOT: [$GOROOT]"
+{{ if eq .chezmoi.os "darwin" }}
+echo "override GOROOT based on darwin and using brew"
+export GOROOT="/usr/local/opt/go/libexec"
+{{ else }}
+{{ end }}
+# this was needed to avoid permission denied : go
+if [[ -d "/usr/local/bin/go/bin/" ]]; then
+    export PATH=/usr/local/bin/go/bin/:$PATH
+    echo -e "✅ go [added to path: /usr/local/bin/go/bin]"
+fi
+
+export PATH="$(go env GOPATH)/bin:$PATH"
+echo "GOROOT: $GOROOT"
+echo "GOPATH: $GOPATH"
+go install github.com/alecbz/spinner@latest && echo "✔️ spinner installed"
+go install github.com/magefile/mage@latest | spinner --message "installing mage" && echo "✔️ mage installed"
+go install github.com/iwittkau/mage-select@latest | spinner --message "mage" && echo "✔️ mage-select installed"
+go install github.com/evilmartians/lefthook@latest | spinner --message "lefthook" && echo "✔️ lefthook installed"
+go install github.com/sachaos/viddy@latest | spinner --message "viddy" && echo "✔️ viddy installed"
+go install github.com/akavel/up@latest | spinner --message "up" && echo "✔️ up installed"
+go install github.com/vmware-tanzu/carvel-vendir/cmd/vendir@latest | spinner --message "installing vendir" && echo "✔️ vendir installed"
+{{- end -}}

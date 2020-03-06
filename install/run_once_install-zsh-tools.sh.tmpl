@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+yes | sh -c "$(curl -fsSL https://git.io/zinit-install)" && echo "✅ installed zinit"
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+sh -c "$(curl -fsSL https://git.io/zinit-install)" 1>/dev/null && echo "✅ installed zinit"
+{{ else }}
+{{ end -}}

@@ -1,0 +1,20 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+# ADDITIONAL_PACKAGES=pv \
+#     curl \
+#     wget \
+#     tree \
+#     build-essential
+# ensure go tooling like spinner is installed
+export GOROOT="${GOROOT:-/usr/local/bin/go}"
+export PATH=$GOROOT/bin/:$PATH
+export PATH="$(go env GOPATH)/bin:$PATH"
+DEBIAN_FRONTEND=noninteractive sudo apt-get -qqy -o Dpkg::Progress-Fancy=true update | spinner --message "apt update"
+sudo apt-get -qqy -o Dpkg::Progress-Fancy=true --fix-broken install apt-utils sudo git pv curl wget tree build-essential jq exa | spinner --message "installing packages"
+#${ADDITIONAL_PACKAGES}
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+export HOMEBREW_NO_AUTO_UPDATE=1
+package=tree
+brew list $package &>/dev/null || brew install $package
+{{ end -}}

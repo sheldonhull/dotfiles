@@ -1,0 +1,28 @@
+{{/* Test Template: bash -c 'chezmoi execute-template --init --promptString username="Sheldon Hull" < ~/.local/share/chezmoi/.chezmoi.toml.tmpl' */}}
+{{/*- $myName := promptString "Enter Your Name (default: Sheldon Hull)" -*/}}
+{{/*- $option_install_powershell := promptString "Install PowerShell? true/false (default: false)" -*/}}
+{{/*- $option_install_ansible := promptString "Install Ansible? true/false (default: false)" -*/}}
+{{/*- $option_install_tfswitch := promptString "Install tfswitch? true/false (default: false)" -*/}}
+
+{{- $myName := "Sheldon Hull" }}
+{{- $option_install_powershell := "false" }}
+{{- $option_install_ansible := "false" }}
+{{- $option_install_tfswitch := "false" }}
+{{- $codespaces := env "CODESPACES" | not | not -}}
+
+sourceDir = "{{ .chezmoi.sourceDir }}"
+
+[data]
+  name = "{{if $myName -}} {{- $myName -}} {{- else -}} Sheldon Hull {{- end}}"
+
+  codespaces = {{if $codespaces -}} {{- $codespaces -}} {{- else -}} false {{- end}}
+  option_install_powershell = {{if $option_install_powershell -}} {{- $option_install_powershell -}} {{- else -}} false {{- end}}
+  option_install_ansible = {{if $option_install_ansible -}} {{- $option_install_ansible -}} {{- else -}} false {{- end}}
+  option_install_tfswitch = {{if $option_install_tfswitch -}} {{- $option_install_tfswitch -}} {{- else -}} false {{- end}}
+
+[sourceVCS]
+{{- if $codespaces }}
+{{/* Codespaces dotfiles setup is non-interactive, so set an email address */}}
+{{- else }}{{/* Interactive setup, so prompt for an email address */}}
+    autoCommit = true
+{{- end }}

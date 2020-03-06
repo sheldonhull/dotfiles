@@ -1,0 +1,47 @@
+= dotfiles
+
+== Overview
+
+Configuration for:
+
+* visual-studio-codespaces
+
+Originally this was built off chezmoi with a a private repo, but it requires every single codespace to have a secondary bootstrap phase.
+This will be a simplified migration from the large chezmoi project I have with the primary focus first of working with devcontainer/Codespaces oriented workflow in Linux.
+
+== Use
+
+=== Manual testing inside Docker
+
+[source,shell]
+----
+docker build --pull --rm --build-arg "BUILD_FORCE=$(date)" -f "Dockerfile" -t chezmoitest:latest "."
+docker run --rm -it -v ${PWD}/.artifacts:/home/codespace/out:rw --cap-add=SYS_PTRACE --security-opt seccomp=unconfined --privileged --init chezmoitest:latest /bin/zsh -l
+chezmoi apply --verbose
+zsh -l
+chezmoi archive --output=/home/codespace/out/dotfiles-ubuntu.zip
+# docker exec -it chezmoitest:latest bash
+----
+
+* Fix commands that don't allow execution by running: `git update-index --chmod=+x ./filename`
+=== Macbook
+
+* link:https://gist.github.com/sheldonhull/daa2433be306e511d0eaa73d68314346[Gist To Download Without Login]
+
+[source,shell]
+----
+curl -s https://raw.githubusercontent.com/sheldonhull/dotfiles/master/mac/bootstrap.sh | /bin/bash
+----
+
+==
+
+== Contributing
+
+. Make sure to set shell script as executable before commit with `chmod -R +x  ./shell`
+
+
+== Resources/Credits:
+
+* link:https://github.com/dude051/macbook-bootstrap[github-macbook-bootstrap]
+* link:https://github.com/geerlingguy/mac-dev-playbook[github-mac-dev-playbook]
+* link:https://github.com/jamescarr/ansible-mac-demo[ansible-mac-demo]

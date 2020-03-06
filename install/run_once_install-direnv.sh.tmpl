@@ -1,0 +1,8 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+curl -sfL https://direnv.net/install.sh | bash
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+curl -sfL https://direnv.net/install.sh | bash
+{{ else }}
+{{ end -}}

@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+DEBIAN_FRONTEND=noninteractive sudo apt-get -yqq -o Dpkg::Progress-Fancy=true update \
+    && sudo apt-get -yqq -o Dpkg::Progress-Fancy=true install fzf && echo "✔️ fzf installed"
+{{ else if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+export HOMEBREW_NO_AUTO_UPDATE=1
+package=fzf
+brew list $package &>/dev/null || brew install $package
+{{ else }}
+{{ end -}}

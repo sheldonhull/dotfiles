@@ -1,0 +1,436 @@
+{{ if eq .chezmoi.os "darwin" -}}
+### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+### END FIG ENV VARIABLES ####
+{{ end -}}
+
+
+##################
+# Reference Docs #
+##################
+
+# Filthy: https://github.com/molovo/filthy#options
+
+# Most themes use this.
+setopt promptsubst
+
+################
+# PATH UPDATES #
+################
+# SPECIFIC PATH UPDATES
+if command -v go &>/dev/null; then echo "✔️ $(go version)"; else echo "✖️ go not found"; fi
+if [[ -d "/usr/local/bin/go/bin/" ]]; then
+    export PATH=/usr/local/bin/go/bin/:$PATH
+    echo -e "✔️️ go [added to path: /usr/local/bin/go/bin]"
+fi
+
+{{ if eq .chezmoi.os "linux" }}
+export PATH=/home/codespace/.go/bin:$PATH
+export PATH=/home/codespace/.go/current/bin:$PATH
+GOPATH_BIN="$(go env GOPATH)/bin"
+if [[ -d "${GOPATH_BIN}" ]]; then
+    export PATH="${PATH}:${GOPATH_BIN}"
+    echo "➕ PATH:$GOPATH_BIN"
+else
+    echo "❌ didn't find GOPATH_BIN: [$GOPATH_BIN]"
+fi
+
+# https://stackoverflow.com/questions/12843063/install-go-with-brew-and-running-the-gotour
+{{ else if eq .chezmoi.os "darwin" }}
+# echo "override GOROOT based on darwin and using brew"
+export GOROOT="/usr/local/opt/go/libexec"
+export PATH=$PATH:$(go env GOPATH)/bin
+{{ end }}
+
+
+#(test -d "$GOPATH_BIN" && export PATH="${PATH}:${GOPATH_BIN}" && echo "➕ PATH:$GOPATH_BIN") || echo "❌ didn't find GOPATH_BIN: [$GOPATH_BIN]"
+################################################
+# Ensure Brew Found                            #
+################################################
+#if command -v brew ; then eval "$(brew --prefix)/bin/brew shellenv"; else echo "✖️ homebrew not found"; fi
+if command -v brew &>/dev/null; then eval "$($(which brew) shellenv)" && echo "✔️ brew shellenv loaded"; else echo "✖️ homebrew not found"; fi
+
+
+############################################
+# Load Aliases Last After All Path Updates #
+############################################
+# https://linuxhint.com/configure-use-aliases-zsh/
+#if [ -x fzf ]; then alias finddir='fd --type d --hidden --follow --exclude .git  | fzf' && echo "➕ alias: finddir" ;  fi
+if command -v fzf &>/dev/null; then alias finddir='fd --type d --hidden --follow --exclude .git  | fzf' && echo "➕ alias: finddir" ;  fi
+#if [ -x mage ]; then alias mages=mage-select && echo "➕ alias: mages";  fi
+if command -v mage &>/dev/null; then alias mages=mage-select && echo "➕ alias: mages";  fi
+
+# Autoload env variables
+# direnv
+if command -v direnv &>/dev/null; then
+# if [ -x direnv ]; then
+    alias ds='direnv status'
+    alias de='direnv edit'
+    alias da='direnv allow'
+    alias dn='direnv deny'
+    alias dp='direnv prune'
+    alias dr='direnv reload'
+    echo "➕ aliase: direnv"
+else
+    echo "✖️ direnv not found"
+fi
+
+if bit version &>/dev/null; then alias git=bit && echo "➕ alias: git=bit" ;  fi
+## brew install exa nnn
+if command -v exa &>/dev/null; then alias ls=exa && echo "➕ alias: ls=exa";  else echo "✖️ exa not detected"; fi
+if command -v nnn &>/dev/null; then alias explorer=nnn && echo "➕ alias: explorer=nnn";  else echo "✖️ nnn not detected"; fi
+
+# Alias ll to list files with long-listing + human readable
+alias ll=ls -lh
+
+######################
+# ZSH HISTORY CONFIG #
+######################
+
+###########
+# History #
+###########
+export HISTSIZE=1000
+export SAVEHIST=1000 # number of lines saved in the history after logout
+export HISTFILE=$HOME/.zsh_history # location of history
+setopt inc_append_history # append command to history file once executed
+# only show past commands that include the current input
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+# https://github.com/zsh-users/zsh-autosuggestions#suggestion-strategy
+export ZSH_AUTOSUGGEST_STRATEGY=(history completion)
+
+
+##############
+# ZSH TWEAKS #
+##############
+# Automatically use cd when paths are entered without cd
+setopt autocd
+# Use emacs keybinds, since they're modeless and closer to bash defaults
+bindkey -e
+
+
+#########
+# Iterm #
+#########
+itermintegrationfile="$HOME/.iterm2_shell_integration.zsh"
+if [ -f "$itermintegrationfile" ] &&  [ "$TERM_PROGRAM" = "Iterm.app" ]; then source "$itermintegrationfile" && echo "✔️ iterm integration"; fi
+
+
+
+###########################
+# Customized Key Bindings #
+###########################
+## KEY BINDINGS TO FIX CTRL+BEHAVIOR
+bindkey -e
+bindkey '^[[1;9C' forward-word
+bindkey '^[[1;9D' backward-word
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
+
+
+####################
+# Helper Functions #
+####################
+
+## Helper Functions
+terragrunt () {
+    local action=$1
+    shift 1
+    command terragrunt $action "$@" 2>&1 | sed -E "s|$(dirname $(pwd))/||g;s|^\[terragrunt\]( [0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2})* ||g;s|(\[.*\]) [0-9]{4}/[0-9]{2}/[0-9]{2} [0-9]{2}:[0-9]{2}:[0-9]{2}|\1|g"
+}
+env_file_load(){
+    local dir=$1
+    export $(grep -v '^#' $dir | xargs)
+    echo -e "✔️ loaded $1"
+}
+
+# Use `jq` with both JSON and non-JSON lines.
+function jjq {
+    jq -R -r "${1:-.} as \$line | try fromjson catch \$line"
+}
+
+############
+# CompInit #
+############
+# The initialization script compinit redefines all the widgets which perform completion to call the supplied widget function _main_complete.
+# This function acts as a wrapper calling the so-called `completer' functions that generate matches.
+# fpath=($HOME/.zsh/completions $fpath)
+# autoload -U compinit && compinit
+
+### Added by Zinit's installer
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.zinit/bin" && \
+    print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
+    print -P "%F{160}▓▒░ The clone has failed.%f%b"
+fi
+if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
+    echo "❌ ISSUE: not able to find zinit so exiting initialization"
+    exit 1
+fi
+
+source "$HOME/.zinit/bin/zinit.zsh"
+# source "$HOME/.zinit/bin/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+
+### End of Zinit's installer chunk
+
+################
+# ZINIT CONFIG #
+################
+# revolver
+zinit ice wait"2" lucid as"program" pick"revolver"
+zinit light molovo/revolver
+
+# ogham/exa also uses the definitions
+zinit ice wait"0c" lucid reset \
+    atclone"local P=${${(M)OSTYPE:#*darwin*}:+g}
+            \${P}sed -i \
+            '/DIR/c\DIR 38;5;63;1' LS_COLORS; \
+            \${P}dircolors -b LS_COLORS > c.zsh" \
+    atpull'%atclone' pick"c.zsh" nocompile'!' \
+    atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
+zinit light trapd00r/LS_COLORS
+
+zinit ice as"program" atclone'perl Makefile.PL PREFIX=$ZPFX' \
+    atpull'%atclone' make'install' pick"$ZPFX/bin/git-cal"
+zinit light k4rthik/git-cal
+
+
+zinit ice as"completion"
+zinit snippet OMZP::colored-man-pages
+zinit snippet OMZP::command-not-found
+# zinit snippet OMZP::copydir
+# zinit snippet OMZP::copyfile
+# zinit snippet OMZP::dash
+zinit snippet OMZP::direnv
+#
+# zinit snippet OMZP::extract
+zinit snippet OMZP::fzf
+# zinit snippet OMZP::gh
+zinit snippet OMZP::golang
+# zinit snippet OMZP::helm
+# zinit snippet OMZP::iterm2
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::lol
+# zinit snippet OMZP::minikube
+# zinit snippet OMZP::please
+# zinit snippet OMZP::shrink-path
+# zinit snippet OMZP::sudo
+# zinit snippet OMZP::chucknorris
+#
+# zinit snippet OMZP::sudo
+# zinit snippet OMZP::terraform
+# zinit snippet OMZP::timer
+# zinit snippet OMZP::web-search
+# zinit snippet OMZP::z
+zinit snippet OMZP::zsh-interactive-cd
+# zinit snippet OMZP::zsh-navigation-tools
+
+
+zinit wait lucid light-mode for \
+atinit"zicompinit; zicdreplay" \
+zdharma-continuum/fast-syntax-highlighting \
+atload"_zsh_autosuggest_start" \
+zsh-users/zsh-autosuggestions \
+blockf atpull'zinit creinstall -q .' \
+zsh-users/zsh-completions
+zinit snippet 'https://raw.githubusercontent.com/agkozak/zsh-z/master/zsh-z.plugin.zsh'
+
+# zinit wait"1" lucid from"gh-r" as"null" for \
+#      sbin"fzf"          junegunn/fzf-bin \
+#      sbin"**/fd"        @sharkdp/fd \
+#      sbin"**/bat"       @sharkdp/bat \
+#      sbin"exa* -> exa"  ogham/exa
+
+# ogham/exa, replacement for ls
+# ogham/exa, replacement for ls
+
+zinit ice wait"2" lucid from"gh-r" as"program" mv"exa* -> exa"
+zinit light ogham/exa
+zinit light jarun/nnn
+zinit light lukechilds/zsh-nvm  # installs nvm as well
+
+# zinit ice from"gh-r" as"program" mv"docker* -> docker-compose"
+# zinit light docker/compose
+
+# interactive Git cli
+zinit load wfxr/forgit
+
+zinit ice svn pick"init.zsh"
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-completions
+
+zinit load zdharma-continuum/history-search-multi-word
+
+
+###################################################
+# HOOK - AUTOMATICALLY RUN NVM ON DIRECTORY START #
+###################################################
+####
+# ZSH function to auto-switch to correct Node version
+#   https://gist.github.com/callumlocke/30990e247e52ab6ac1aa98e5f0e5bbf5
+#
+# - Searches up your directory tree for the closest .nvmrc, just like `nvm use` does.
+#
+# - If you are already on the right Node version, IT DOES NOTHING, AND PRINTS NOTHING.
+#
+# - Works correctly if your .nvmrc file contains something relaxed/generic,
+#   like "4" or "v12.0" or "stable".
+#
+# - If an .nvmrc is found but you have no installed version that satisfies it, it
+#   prints a clear warning, so you can decide whether you want to run `nvm install`.
+#
+# - If no .nvmrc is found, it does `nvm use default`.
+#
+# Recommended: leave your default as something generic,
+# e.g. do `nvm alias default stable`
+####
+
+
+# CREDIT: function nvm_auto_switch sourced from https://gist.github.com/callumlocke/30990e247e52ab6ac1aa98e5f0e5bbf5
+auto-switch-node-version() {
+  NVMRC_PATH=$(nvm_find_nvmrc)
+  CURRENT_NODE_VERSION=$(nvm version)
+
+  if [[ ! -z "$NVMRC_PATH" ]]; then
+    # .nvmrc file found!
+
+    # Read the file
+    REQUESTED_NODE_VERSION=$(cat $NVMRC_PATH)
+
+    # Find an installed Node version that satisfies the .nvmrc
+    MATCHED_NODE_VERSION=$(nvm_match_version $REQUESTED_NODE_VERSION)
+
+    if [[ ! -z "$MATCHED_NODE_VERSION" && $MATCHED_NODE_VERSION != "N/A" ]]; then
+      # A suitable version is already installed.
+
+      # Clear any warning suppression
+      unset AUTOSWITCH_NODE_SUPPRESS_WARNING
+
+      # Switch to the matched version ONLY if necessary
+      if [[ $CURRENT_NODE_VERSION != $MATCHED_NODE_VERSION ]]; then
+        nvm use $REQUESTED_NODE_VERSION
+      fi
+    else
+      # No installed Node version satisfies the .nvmrc.
+
+      # Quit silently if we already just warned about this exact .nvmrc file, so you
+      # only get spammed once while navigating around within a single project.
+      if [[ $AUTOSWITCH_NODE_SUPPRESS_WARNING == $NVMRC_PATH ]]; then
+        return
+      fi
+
+      # Convert the .nvmrc path to a relative one (if possible) for readability
+      RELATIVE_NVMRC_PATH="$(realpath --relative-to=$(pwd) $NVMRC_PATH 2> /dev/null || echo $NVMRC_PATH)"
+
+      # Print a clear warning message
+      echo ""
+      echo "WARNING"
+      echo "  Found file: $RELATIVE_NVMRC_PATH"
+      echo "  specifying: $REQUESTED_NODE_VERSION"
+      echo "  ...but no installed Node version satisfies this."
+      echo "  "
+      echo "  Current node version: $CURRENT_NODE_VERSION"
+      echo "  "
+      echo "  You might want to run \"nvm install\""
+
+      # Record that we already warned about this unsatisfiable .nvmrc file
+      export AUTOSWITCH_NODE_SUPPRESS_WARNING=$NVMRC_PATH
+    fi
+  else
+    # No .nvmrc file found.
+
+    # Clear any warning suppression
+    unset AUTOSWITCH_NODE_SUPPRESS_WARNING
+
+    # Revert to default version, unless that's already the current version.
+    if [[ $CURRENT_NODE_VERSION != $(nvm version default)  ]]; then
+      nvm use default
+    fi
+  fi
+}
+
+# Run the above function in ZSH whenever you change directory
+if command -v nvm &>/dev/null; then
+    autoload -U add-zsh-hook
+    add-zsh-hook chpwd auto-switch-node-version
+    auto-switch-node-version
+    echo "✔️️ nvm: [$(nvm --version)] with hook enabled"
+else
+    echo "✖️ nvm not found"
+fi
+
+#if command -v nvm &>/dev/null; then
+#if  [ -x nvm ]; then
+#    export NVM_DIR="$HOME/.nvm"
+#    [ -s "/usr/local/opt/nvm/nvm.sh" ] && . "/usr/local/opt/nvm/nvm.sh"  # This loads nvm
+#    [ -s "/usr/local/opt/nvm/etc/bash_completion.d/nvm" ] && . "/usr/local/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+#    autoload -U add-zsh-hook
+#    load-nvmrc() {
+#        v="$(nvm version)"
+#        nvmrcp="$(nvm_find_nvmrc)"
+#        local node_version="$v"
+#        local nvmrc_path="nvmrcp"
+#
+#        if [ -n "$nvmrc_path" ]; then
+#            local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+#
+#            if [ "$nvmrc_node_version" = "N/A" ]; then
+#                nvm install
+#                elif [ "$nvmrc_node_version" != "$node_version" ]; then
+#                nvm use
+#            fi
+#            elif [ "$node_version" != "$(nvm version default)" ]; then
+#            echo "Reverting to nvm default version"
+#            nvm use default
+#        fi
+#    }
+#    add-zsh-hook chpwd load-nvmrc
+#    load-nvmrc
+#
+#    echo "✔️️ nvm: [$(nvm --version)] with hook enabled"
+#else
+#    echo "✖️ nvm not found"
+#fi
+
+################
+# STARTUP INFO #
+################
+
+echo "✔️️ whoami: [$(whoami)]"
+if [ "$TERM_PROGRAM" = "vscode" ]
+then
+    echo "✔️️ environment: [vscode]"
+else
+    echo "✔️️ environment: [$TERM_PROGRAM]"
+fi
+if [[ -o login ]]; then
+    echo "✔️️ shell [login]"
+else
+    echo "❌ shell [not login]"
+fi
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='nano'
+    echo "✔️️ ssh: [true]"
+    echo "✔️️ editor: [nano]"
+else
+    export EDITOR='code-insiders'
+    echo "✔️️ editor: [code-insiders]"
+fi
+if [[ -n $SSH_CONNECTION ]]; then
+    echo "▫️ starship: [no per ssh]"
+else
+    echo "✔️️ starship"
+    eval "$(starship init zsh --print-full-init)"
+fi
+{{ if eq .chezmoi.os "darwin" -}}
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
+{{ end -}}

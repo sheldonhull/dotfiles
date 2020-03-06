@@ -1,0 +1,219 @@
+[core]
+    ignorecase = false # this will allow renames with case change only to be properly detected
+    editor = "code-insiders --wait"
+    pager = delta --dark
+    whitespace = trailing-space,-space-before-tab #,indent-with-non-tab,tab-in-indent,cr-at-eol
+
+{{- if eq .chezmoi.os "darwin" }}
+    autocrlf = input
+{{- else if eq .chezmoi.os "windows" }}
+    autocrlf = True
+{{- if eq .chezmoi.os "windows" }}
+    excludesfile = {{ cat .chezmoi.homeDir ".gitignore" | nospace | replace "\\" "/" }}
+{{- else }}
+    excludesfile = {{ .chezmoi.homeDir }}/.gitignore
+{{ end }}
+{{- end }}
+[help]
+    autocorrect = 5
+[diff]
+    tool = vscode
+[difftool "vscode"]
+    cmd = code-insiders --wait --diff $LOCAL $REMOTE
+[merge]
+    tool = vscode
+    conflictstyle = merge
+    keepTemporaries = false
+    keepBackup = false
+[mergetool "vscode"]
+    cmd = code-insiders --wait $MERGED
+[pull]
+	rebase = True
+	autosquash = True
+    {{- if eq .chezmoi.os "windows" }}
+    excludesfile = {{ cat .chezmoi.homeDir ".gitignore" | nospace | replace "\\" "/" }}
+
+    {{- else }}
+    excludesfile = {{ .chezmoi.homeDir }}/.gitignore
+    {{ end }}
+[push]
+	followTags = True
+[rebase]
+  autosquash = true
+[alias]
+    # Use gitversion to quickly commit wip items
+    #quickcommit = !pwsh -noprofile -nologo -c 'Import-Module Nameit && git commit -am\"refactor(wip): $((NameIt\\Invoke-Generate '[adjective]-[noun]' -Culture EN).ToLower())\" && git town sync && git log --oneline -1'
+    #quickcommitnv = !pwsh -noprofile -nologo -c 'Import-Module Nameit && git commit -am\"refactor(wip): $((NameIt\\Invoke-Generate '[adjective]-[noun]' -Culture EN).ToLower())\" --no-verify && git town sync && git log --oneline -1'
+
+    # quickcommit = !pwsh -noprofile -nologo -c 'Import-Module Nameit && git commit -am\"refactor(wip): $((git status -s) -join \", \")[0..20] -join \"\")\" && git town sync && git log --oneline -1'
+
+    # This commits plus adds any unstaged/new files
+    # yoloc = !pwsh -noprofile -nologo -c 'Import-Module Nameit && git add . && git commit -am\"refactor(wip): $((NameIt\\Invoke-Generate '[adjective]-[noun]' -Culture EN).ToLower())\" && git town sync && git log --oneline -1'
+    # yolo  = !pwsh -noprofile -nologo -c 'Import-Module Nameit && git add . && git commit -am\"refactor(wip): $((NameIt\\Invoke-Generate '[adjective]-[noun]' -Culture EN).ToLower())\" --no-verify && git town sync && git log --oneline -1'
+    # zsh versions, no pwsh required
+    yoloc = !git add -A && git commit -am\"refactor(wip): $(petname)\" && git town sync && git log --oneline -1;
+    yolo  = !git add -A && git commit -am\"refactor(wip): $(petname)\" --no-verify && git town sync && git log --oneline -1;
+    a = !git add -A
+    addall = !git add -A
+    # azure devops cli aliases
+    # az devops configure --use-git-aliases true
+    # https://docs.microsoft.com/en-us/cli/azure/repos/pr?view=azure-cli-latest#az_repos_pr_create
+    # new-pr = !pwsh -noprofile -nologo -c '&az repos pr create --title \"$(git log  -1 --pretty=format:\"%s\")\" --description $((git log -1 --pretty=format:\"%b\").ForEach{''\"{0}\"'' -f $_}) --auto-complete true --delete-source-branch true --squash --merge-commit-message \"$(git log  -1 --pretty=format:\"%s\")\" --output table --open --detect'
+    new-pr = "!f() { \
+            az repos pr create --title \"$(git log  -1 --pretty=format:\"%s\")\" \
+            --description \"$(git log -1 --pretty=format:\"%b\")\" \
+            --auto-complete true \
+            --delete-source-branch true \
+            --squash \
+            --merge-commit-message \"$(git log  -1 --pretty=format:\"%s\")\" \
+            --output table \
+            --open \
+            --detect; \
+            };f"
+    new-pr-wait = "!f() { \
+            az repos pr create --title \"$(git log  -1 --pretty=format:\"%s\")\" \
+            --description \"$(git log -1 --pretty=format:\"%b\" |tr \"\n\" \" \")\" \
+            --auto-complete false \
+            --delete-source-branch true \
+            --squash \
+            --merge-commit-message \"$(git log  -1 --pretty=format:\"%s\")\" \
+            --output table \
+            --open \
+            --detect; \
+            };f"
+    # utilities
+    # Quote / unquote a sh command, converting it to / from a git alias string
+    # quote-string = "!read -r l; printf \\\"!; printf %s \"$l\" | sed 's/\\([\\\"]\\)/\\\\\\1/g'; printf \" #\\\"\\n\" #"
+    # quote-string-undo = "!read -r l; printf %s \"$l\" | sed 's/\\\\\\([\\\"]\\)/\\1/g'; printf \"\\n\" #"
+
+    # Other
+    pushf = !git push --force-with-lease
+    # fixup = !git commit -a --amend --no-edit
+	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    chezmoi = !pwsh -noprofile -nologo -c 'set-location -literalpath \"${ENV:HOME}/.local/share/chezmoi\" && chezmoi git -- add . && chezmoi git -- commit -m \"$((NameIt\\Invoke-Generate '[adjective]-[noun]'  -Culture EN).ToLower())\" && git town sync && git log --oneline -1'
+
+    # Prior Version
+    # chezmoi = !cd $HOME/.local/share/chezmoi && chezmoi git -- add . && chezmoi git -- commit -m \"chezmoi update\" . && chezmoi git -- push
+    # $result | ConvertFrom-Json -Depth 3 | Format-List
+
+    # git town aliases
+    append = town append
+	hack = town hack
+	kill = town kill
+	# new-pull-request = town new-pull-request
+	prepend = town prepend
+	prune-branches = town prune-branches
+	rename-branch = town rename-branch
+	repo = town repo
+	ship = town ship
+    # ship  = !pwsh -noprofile -nologo -c '$version=&semver up rc && git add .semver.yaml && git commit -m\"semver bump to: $version\" --no-verify && git town ship && git log --oneline -1'
+    # ship  = !pwsh -noprofile -nologo -c 'git add -u && git commit -m\"semver bump to: $version\" --no-verify && git town ship && git log --oneline -1'
+
+	sync = town sync
+
+    pr = "!f() { exec az repos pr \"$@\"; }; f"
+    alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
+
+    # Log that shows titles of last 16 commits
+    l = "log -16 --color=always --all --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+    # Log that starts a pager with titles of all the commits in your tree
+    ll = log --color=always --all --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+
+    # Log that shows the last 10 commits as a graph
+    lg = "log -10 --color=always --all --graph --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+
+    # Log that shows all commits as a graph (using a pager)
+    lgl = "log --color=always --all --graph --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+
+    # Show outgoing commits
+    out = "log @{u}.."
+
+    # Print the title of the current branch; sometimes useful for scripting
+    currentbranch = "!git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2"
+
+    # Better diffs for prose
+    wdiff = "diff --color-words"
+
+    # Safer pulls; don't do anything other than a fast forward on merge
+    #pull = "pull --ff-only"
+
+    # Amend last commit without modifying commit message
+    amend = "!git log -n 1 --pretty=tformat:%s%n%n%b | git commit -F - -a --amend"
+
+
+    # Create a commit that will be automatically squashed as a fixup when you
+    # run `git rebase --autosquash`
+    # fixup = "commit --fixup=HEAD"
+    fixup = "!git add -A && git log -n 50 --pretty=format:'%h %s' --no-merges | fzf | cut -c -7 | xargs -o git commit --fixup"
+
+
+
+    l = "log -16 --color=always --all --topo-order --pretty='%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+[user]
+	name = Sheldon Hull
+	email = sheldonhull@users.noreply.github.com
+[init]
+	defaultBranch = main
+{{- if eq .chezmoi.os "darwin" }} # NOTE: Not currently installing in Linux, but can expand later to this if needed.
+    # templateDir = {{ .chezmoi.homeDir }}/.git-template
+{{- else if eq .chezmoi.os "windows" }}
+    # templateDir = {{ cat .chezmoi.homeDir ".git-template" | nospace | replace "\\" "/" }}  # If this fails for you, it's because you have whitespace in your path... and that's just an abomination...
+{{- end }}
+
+[diff]
+    colorMoved = default
+[delta]
+    side-by-side = true
+    whitespace-error-style = 22 reverse
+    inspect-raw-lines = false
+[delta "unobtrusive-line-numbers"]
+    line-numbers = true
+    line-numbers-minus-style = "#444444"
+    line-numbers-zero-style = "#444444"
+    line-numbers-plus-style = "#444444"
+    line-numbers-left-format = "{nm:>4}┊"
+    line-numbers-right-format = "{np:>4}│"
+    line-numbers-left-style = blue
+    line-numbers-right-style = blue
+
+[delta "decorations"]
+    commit-decoration-style = bold yellow box ul
+    file-style = bold yellow ul
+    file-decoration-style = none
+    hunk-header-decoration-style = yellow box
+{{- if eq .chezmoi.os "darwin" }}
+# [credential]
+# helper = /usr/local/share/gcm-core/git-credential-manager-core
+# [credential "https://dev.azure.com"]
+#     useHttpPath = true
+{{- else if eq .chezmoi.os "linux" -}}
+[credential]
+    # helper = cache --timeout=86400
+	helper =
+	helper = /usr/bin/git-credential-manager-core
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+{{- else if eq .chezmoi.os "windows" -}}
+[credential]
+    helper =
+	helper = /usr/bin/git-credential-manager-core
+# helper = cache --timeout=86400
+
+{{- end }}
+
+# Use to extend for very specific environment such as work
+[include]
+    path = .extended.gitconfig
+
+# Secrets requires installation of git-secrets cli. This helps catch aws and common credentials from accidentally being included in a repo
+[secrets]
+    providers = git secrets --aws-provider
+    patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
+    patterns = (\"|')?(AWS|aws|Aws)?_?(SECRET|secret|Secret)?_?(ACCESS|access|Access)?_?(KEY|key|Key)(\"|')?\\s*(:|=>|=)\\s*(\"|')?[A-Za-z0-9/\\+=]{40}(\"|')?
+    patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?

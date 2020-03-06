@@ -1,0 +1,103 @@
+{{ if eq .chezmoi.os "darwin" -}}
+### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+### END FIG ENV VARIABLES ####
+{{ end -}}
+
+
+
+# Keep brew from upgrading between each formula install
+export HOMEBREW_NO_AUTO_UPDATE=1
+
+# If file exists source, otherwise ignore
+# [ ! -e $HOME/.secrets ] || source $HOME/.secrets
+# [ ! -e $HOME/.env ] || source $HOME/.env && echo "➕ sourced .env"
+[ ! -e $HOME/.envrc ] || source $HOME/.envrc && echo "➕ sourced .envrc"
+
+export DOCKER_BUILDKIT=1
+export AWS_VAULT_BACKEND="keychain"
+export AWS_SESSION_TOKEN_TTL="4h"
+export AWS_CHAINED_SESSION_TOKEN_TTL="1h"
+export AWS_FEDERATION_TOKEN_TTL="4h"
+export AWS_ASSUME_ROLE_TTL="4h"
+export MICRO_TRUECOLOR=1
+export TF_PLUGIN_CACHE_DIR="$HOME/.terraform.d/plugin-cache"
+# Path Variables provided by dotnet core
+export DOTNET_ROOT="/usr/local/opt/dotnet/libexec"
+export MAGEFILE_ENABLE_COLOR=1 # Use color in magefile output
+
+# Added by serverless binary installer
+export PATH=$HOME/.serverless/bin:$PATH
+
+
+{{ if eq .chezmoi.os "linux" }}
+export PATH=/home/codespace/.go/bin:$PATH
+export PATH=/home/codespace/.go/current/bin:$PATH
+GOPATH_BIN="$(go env GOPATH)/bin"
+if [[ -d "${GOPATH_BIN}" ]]; then
+    export PATH="${PATH}:${GOPATH_BIN}"
+    echo "➕ PATH:$GOPATH_BIN"
+else
+    echo "❌ didn't find GOPATH_BIN: [$GOPATH_BIN]"
+fi
+
+# https://stackoverflow.com/questions/12843063/install-go-with-brew-and-running-the-gotour
+{{ else if eq .chezmoi.os "darwin" }}
+# echo "override GOROOT based on darwin and using brew"
+export GOROOT="/usr/local/opt/go/libexec"
+export PATH=$PATH:$(go env GOPATH)/bin
+{{ end }}
+
+
+
+export STARSHIP_CONFIG=$HOME/.config/starship.toml
+
+
+# You can use fd, ripgrep, or the silver searcher instead of the default find command to traverse the file system while respecting .gitignore.
+#export FZF_DEFAULT_COMMAND='fd --type d --hidden --follow --exclude .git "!{node_modules/*,.git/*}'
+export FZF_DEFAULT_COMMAND='rg --files --follow --hidden -g "!{node_modules/*,.git/*}"'
+#--no-ignore-vcs
+alias finddir='fd --type d --hidden --follow --exclude .git  | fzf'
+#"!{node_modules/*,.git/*}"'
+
+##############
+# PATH EDITS #
+##############
+# non-administrative installs such as pre-commit might come in here
+export PATH=$HOME/bin:$PATH
+export PATH=$PATH:$HOME/.dotnet/tools
+
+# tooling for sbin is often installed for tools like node with homebrew but won't be recognized without this.
+# export PATH=/usr/local/sbin:$PATH
+export PATH="/usr/local/sbin:$PATH"
+export PATH=$PATH:$(npm get prefix)/bin
+
+# Ensure yarn global path is loaded
+export PATH="$PATH:$(yarn global bin)"
+
+# Ensure Go binary tools are found in path
+export PATH=$(go env GOPATH)/bin:$PATH
+
+# >>> talisman >>>
+# Below environment variables should not be modified unless you know what you are doing
+export TALISMAN_HOME="$HOME/.talisman/bin"
+alias talisman=$TALISMAN_HOME/talisman_darwin_amd64
+export TALISMAN_INTERACTIVE=true
+# <<< talisman <<<
+
+
+[ ! -e ~/.iterm2_shell_integration.bash ] ||  source ~/.iterm2_shell_integration.bash
+
+
+## Temporary Tooling
+export PATH="$PATH:$HOME/Library/Application Support/Code/User/globalStorage/ms-vscode-remote.remote-containers/cli-bin"
+
+# More aliases
+# alias mages=mage-select
+{{ if eq .chezmoi.os "darwin" -}}
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
+{{ end -}}
