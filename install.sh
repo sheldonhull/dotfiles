@@ -1,11 +1,16 @@
 #!/bin/bash
 source lib.sh
 
-echo "Customized environment"
+awesome_header
 
-echo "Copying settings.json"
+bot "Customized environment"
+
+bot "Copying settings.json"
 ln -sf ~/.vscode/settings.json /User/settings.json
 ln -sf ~/.vscode/keybindings.json /User/keybindings.json
 
-echo "installing git-town"
+bot "installing git-town"
 sudo dpkg -i app/git-town-amd64.deb
+
+
+ok "finished with dotfiles"
