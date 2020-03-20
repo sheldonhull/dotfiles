@@ -534,7 +534,7 @@
         "when": "suggestWidgetVisible && textInputFocus"
     },
     {
-        "key": "ctrl+x",
+        "key": "ctrl+shift+alt+x",
         "command": "workbench.action.terminal.clear",
         "when": "terminalFocus"
     },
@@ -800,5 +800,10 @@
     {
         "key": "ctrl+shift+g",
         "command": "extension.stackoverflow-search-selection"
-    }
+    },
+    {
+        "key": "f8",
+        "command": "workbench.action.terminal.runSelectedText",
+        "when": "editorTextFocus && editorLangId == 'shellscript'"
+    },
 ]

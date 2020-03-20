@@ -151,7 +151,6 @@
         "FerrierBenjamin.fold-unfold-all-icone": "0.0.2",
         "FerrierBenjamin.search-in-git": "1.0.0",
         "Gaardsholt.vscode-whatthecommit": "0.0.7",
-        "HSSE-Development.gitversionview": "0.1.6",
         "JanBn.time-tracker-and-reminder": "1.13.0",
         "JordanKnight.gitignoretrackedfles": "0.2.0",
         "L13RARY.l13-diff": "0.21.0",
@@ -205,14 +204,14 @@
         "mgesbert.python-path": "0.0.11",
         "mhutchie.git-graph": "1.21.0",
         "ms-azuretools.vscode-docker": "1.0.0",
-        "ms-python.python": "2020.2.64397",
+        "ms-python.python": "2020.3.69010",
         "ms-vscode-remote.remote-containers": "0.106.0",
         "ms-vscode-remote.remote-ssh": "0.50.0",
         "ms-vscode-remote.remote-ssh-edit": "0.50.0",
-        "ms-vscode-remote.remote-wsl": "0.42.3",
+        "ms-vscode-remote.remote-wsl": "0.42.4",
         "ms-vscode-remote.vscode-remote-extensionpack": "0.20.0",
-        "ms-vsliveshare.vsliveshare": "1.0.1742",
-        "ms-vsonline.vsonline": "1.0.1736",
+        "ms-vsliveshare.vsliveshare": "1.0.1783",
+        "ms-vsonline.vsonline": "1.0.1802",
         "nemesv.copy-file-name": "1.2.0",
         "nhoizey.gremlins": "0.15.1",
         "nitayneeman.git-semantic-commit": "2.0.0",
@@ -245,7 +244,7 @@
         "yasinkuyu.vscode-units": "0.3.0",
         "yummygum.city-lights-theme": "1.1.5",
         "yzhang.markdown-all-in-one": "2.7.0",
-        "znck.grammarly": "0.6.2"
+        "znck.grammarly": "0.7.0"
     },
     "extensions.autoUpdate": true,
     "extensions.ignoreRecommendations": true,
@@ -642,7 +641,9 @@
     "remote.containers.defaultExtensions": [
         "spmeesseman.vscode-taskexplorer",
         "eamodio.gitlens",
-        "ms-python.python"
+        "ms-python.python",
+        "ms-vscode.powershell-preview",
+        "vtrois.gitmoji-vscode"
     ],
     "remove-empty-lines.allowedNumberOfEmptyLines": 1,
     "scm.alwaysShowActions": true,
@@ -814,6 +815,7 @@
     "vsonline.linux.dotfilesInstallCommand": "install.sh",
     "vsonline.linux.dotfilesRepository": "https://github.com/sheldonhull/visual-studio-online-dotfiles.git",
     "vsonline.linux.dotfilesTargetPath": "~/dotfiles",
+    "vsonline.planFilter": "/subscriptions/db58dd68-d70e-4ec2-9ee8-2eed13543f99/resourceGroups/vso-rg-15f2a44/providers/Microsoft.VSOnline/plans/vso-plan-westus2",
     "window.closeWhenEmpty": false,
     "window.customMenuBarAltFocus": false,
     "window.enableMenuBarMnemonics": false,
@@ -821,7 +823,7 @@
     "window.newWindowDimensions": "maximized",
     "window.openFilesInNewWindow": "off",
     "window.titleBarStyle": "custom",
-    "window.zoomLevel": 1,
+    "window.zoomLevel": 0,
     "workbench.colorCustomizations": {
         "terminal.ansiBlue": "#83a598",
         "terminal.ansiBrightBlack": "#969699",
