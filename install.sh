@@ -13,10 +13,14 @@ bot "installing git-town"
 sudo dpkg -i app/git-town-amd64.deb
 
 bot "installing starship prompt"
-curl -fsSL https://starship.rs/install.sh | bash
+RUN curl -fsSL https://starship.rs/install.sh | bash -s -- --force
+
 bot "adding starship to default .bashrc"
 echo "eval ""$(starship init bash)""" >> ~/.bashrc && source ~/.bashrc
 bot "initializing"
 starship init bash
+
+RUN apt install curl -y
+RUN echo "completed setup of starship.rs"
 
 ok "finished with dotfiles"
