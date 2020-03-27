@@ -151,6 +151,7 @@
         "FerrierBenjamin.fold-unfold-all-icone": "0.0.2",
         "FerrierBenjamin.search-in-git": "1.0.0",
         "Gaardsholt.vscode-whatthecommit": "0.0.7",
+        "GitHub.vscode-pull-request-github": "0.15.0",
         "JanBn.time-tracker-and-reminder": "1.13.0",
         "JordanKnight.gitignoretrackedfles": "0.2.0",
         "L13RARY.l13-diff": "0.21.0",
@@ -175,6 +176,7 @@
         "axosoft.gitkraken-glo": "1.1.0",
         "berublan.vscode-log-viewer": "0.10.2",
         "bibhasdn.unique-lines": "1.0.0",
+        "bierner.color-info": "0.5.1",
         "bmuskalla.vscode-tldr": "1.0.0",
         "burtlo.inspec": "0.5.2",
         "davidedmiston.bettergitcommits": "0.5.0",
@@ -824,7 +826,7 @@
     "window.newWindowDimensions": "maximized",
     "window.openFilesInNewWindow": "off",
     "window.titleBarStyle": "custom",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "workbench.colorCustomizations": {
         "terminal.ansiBlue": "#83a598",
         "terminal.ansiBrightBlack": "#969699",
@@ -832,7 +834,7 @@
         "terminal.ansiBrightMagenta": "#e9a0a0",
         "terminal.ansiRed": "#e64040"
     },
-    "workbench.colorTheme": "SynthWave '84",
+    "workbench.colorTheme": "Horizon",
     "workbench.commandPalette.preserveInput": true,
     "workbench.editor.revealIfOpen": true,
     "workbench.editor.tabSizing": "shrink",
