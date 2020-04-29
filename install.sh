@@ -23,4 +23,8 @@ starship init bash
 RUN apt install curl -y
 RUN echo "completed setup of starship.rs"
 
+
+RUN echo "installing fonts"
+RUN curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true --output "src/glyphs/JetBrainsMono NF.ttf"
+
 ok "finished with dotfiles"

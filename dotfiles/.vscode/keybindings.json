@@ -447,7 +447,7 @@
         "command": "-workbench.action.terminal.new"
     },
     {
-        "key": "ctrl+alt+space",
+        "key": "ctrl+`",
         "command": "workbench.action.terminal.focus"
     },
     {
@@ -680,10 +680,6 @@
         "command": "commentbars.generateAdvanced"
     },
     {
-        "key": "ctrl+`",
-        "command": "workbench.view.explorer"
-    },
-    {
         "key": "ctrl+shift+e",
         "command": "-workbench.view.explorer"
     },
@@ -773,14 +769,6 @@
         "command": "-extension.stackoverflow-search"
     },
     {
-        "key": "ctrl+`",
-        "command": "workbench.action.toggleEditorVisibility"
-    },
-    {
-        "key": "ctrl+shift+c",
-        "command": "extension.Gitmoji"
-    },
-    {
         "key": "ctrl+g ctrl+r",
         "command": "git.syncRebase"
     },
@@ -806,4 +794,22 @@
         "command": "workbench.action.terminal.runSelectedText",
         "when": "editorTextFocus && editorLangId == 'shellscript'"
     },
+    {
+        "key": "ctrl+`",
+        "command": "-workbench.action.terminal.toggleTerminal"
+    },
+    {
+        "key": "ctrl+shift+f",
+        "command": "-workbench.action.findInFiles"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "extension.Gitmoji",
+        "when": "!terminalfocus"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    }
 ]
