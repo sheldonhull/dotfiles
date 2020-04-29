@@ -575,6 +575,7 @@
     "guides.stack.width": 0.5,
     "html.format.indentInnerHtml": true,
     "http.proxy": "${env:http_proxy}",
+    "http.proxyStrictSSL": false,
     "http.proxySupport": "on",
     "kite.showWelcomeNotificationOnStartup": false,
     "liveshare.features": "experimental",
