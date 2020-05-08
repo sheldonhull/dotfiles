@@ -744,7 +744,7 @@
         "when": "editorTextFocus"
     },
     {
-        "key": "ctrl+shift+t",
+        "key": "ctrl+o",
         "command": "workbench.action.openRecent"
     },
     {
@@ -811,5 +811,19 @@
         "key": "ctrl+shift+c",
         "command": "-workbench.action.terminal.openNativeConsole",
         "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.terminal.focus",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+`",
+        "command": "workbench.action.focusActiveEditorGroup",
+        "when": "terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+o",
+        "command": "workbench.action.files.openFile"
     }
 ]
