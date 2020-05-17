@@ -9,25 +9,28 @@ homebrew_taps:
   - homebrew/cask
   - homebrew/core
 homebrew_installed_packages:
-  - apache-spark
-  - gbeine/homebrew-java/postgresql-jdbc
-  - hadoop
-  - homebrew/science/r
-  - homebrew/versions/perl518
-  - {name: mongodb, install_options: "with-openssl"}
-  - mysql-connector-c
-  - newman
-  - {name: octave, install_options: "with-gui"}
-  - postgresql
-  - scala
-  - tomcat
+    - git-town
+    - go
+  # - apache-spark
+  # - gbeine/homebrew-java/postgresql-jdbc
+  # - hadoop
+  # - homebrew/science/r
+  # - homebrew/versions/perl518
+  # - {name: mongodb, install_options: "with-openssl"}
+  # - mysql-connector-c
+  # - newman
+  # - {name: octave, install_options: "with-gui"}
+  # - postgresql
+  # - scala
+  # - tomcat
 homebrew_uninstalled_packages: []
 homebrew_cask_apps:
   - mendeley-desktop
-  - mysqlworkbench
-  - notebook
+  - powershell
+  # - mysqlworkbench
+  # - notebook
   - postman
   - pycharm
-  - sequel-pro
-  - zotero
+  # - sequel-pro
+  # - zotero
 homebrew_cask_uninstalled_apps: []

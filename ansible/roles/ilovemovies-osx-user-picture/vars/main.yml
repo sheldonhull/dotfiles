@@ -1,5 +1,5 @@
 ---
-osx_user_picture_username: "ftod"
+osx_user_picture_username: "sheldonhull"
 
 # Enable changing OSX user picture
 osx_user_picture_enable: true
@@ -18,4 +18,4 @@ osx_user_picture_enable: true
 # Uncomment osx_user_picture_url if you
 # want your picture to be downloaded
 # from a remote URL.
-osx_user_picture_url: "https://en.gravatar.com/userimage/34741261/b37d9ade8b8cea564bc47268db650c84.jpg?size=200"
+osx_user_picture_url: "https://en.gravatar.com/userimage/2191916/79e7dc8f927724ae66c5bd87369ffef9.jpg?size=200"
