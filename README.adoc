@@ -1,0 +1,24 @@
+= dotfiles
+
+== Overview
+
+Configuration for:
+
+* visual-studio-codespaces
+* macbook
+
+NOTE: Visual Studio Codespaces might later be deprecated for settings due to the new syncing functionality. Might still use for app installs/fonts, but might remove more content.
+
+== Use
+
+=== Macbook
+
+[source,shell]
+----
+curl -s https://raw.githubusercontent.com/sheldonhull/dotfiles/master/mac/bootstrap.sh | /bin/bash
+----
+
+
+== Resources/Credits:
+
+* link:https://github.com/dude051/macbook-bootstrap[github-macbook-bootstrap]
