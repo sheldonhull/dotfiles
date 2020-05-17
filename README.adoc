@@ -13,12 +13,18 @@ NOTE: Visual Studio Codespaces might later be deprecated for settings due to the
 
 === Macbook
 
+* link:https://gist.github.com/sheldonhull/daa2433be306e511d0eaa73d68314346[Gist To Download Without Login]
+
 [source,shell]
 ----
 curl -s https://raw.githubusercontent.com/sheldonhull/dotfiles/master/mac/bootstrap.sh | /bin/bash
 ----
 
+==
+
+
 
 == Resources/Credits:
 
 * link:https://github.com/dude051/macbook-bootstrap[github-macbook-bootstrap]
+* link:https://github.com/geerlingguy/mac-dev-playbook[github-mac-dev-playbook]

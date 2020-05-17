@@ -32,15 +32,14 @@
 
 [includeIf "gitdir:~/git/"]
   path = .gitconfig-personal
-[includeIf "gitdir:~/git-voyanta"]
-  path = .gitconfig-work
+# [includeIf "gitdir:~/git-work"]
+#   path = .gitconfig-work
 [includeIf "gitdir:/c/"]
   path = .gitconfig-personal
 
 # requires manual setup and not including in repo. This is auth token for git-town to run. must setup manually
 [includeIf "gitdir:/c"]
     path = .gitconfig-gittown
-
 
 # WINDOWS
 [includeIf "gitdir:/c/"]
@@ -63,7 +62,6 @@
     tool = vscode
 [difftool "vscode"]
     cmd = code --wait --diff $LOCAL $REMOTE
-
 
 ################
 # GIT SETTINGS #
