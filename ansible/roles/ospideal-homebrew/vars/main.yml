@@ -25,12 +25,13 @@ homebrew_installed_packages:
   # - tomcat
 homebrew_uninstalled_packages: []
 homebrew_cask_apps:
-  - mendeley-desktop
+ # - mendeley-desktop
+  - visual-studio-code
   - powershell
   # - mysqlworkbench
   # - notebook
-  - postman
-  - pycharm
+  # - postman
+  # - pycharm
   # - sequel-pro
   # - zotero
 homebrew_cask_uninstalled_apps: []
