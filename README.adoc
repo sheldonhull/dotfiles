@@ -28,3 +28,4 @@ curl -s https://raw.githubusercontent.com/sheldonhull/dotfiles/master/mac/bootst
 
 * link:https://github.com/dude051/macbook-bootstrap[github-macbook-bootstrap]
 * link:https://github.com/geerlingguy/mac-dev-playbook[github-mac-dev-playbook]
+* link:https://github.com/jamescarr/ansible-mac-demo[ansible-mac-demo]
