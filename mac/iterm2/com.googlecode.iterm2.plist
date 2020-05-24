@@ -16,6 +16,10 @@
 	<string>JetBrainsMono Nerd Font Mono</string>
 	<key>CGFontRenderingFontSmoothingDisabled</key>
 	<false/>
+	<key>CloseBookmarksWindowAfterOpening</key>
+	<true/>
+	<key>Command</key>
+	<string>fish</string>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Glacier</key>
@@ -309,7 +313,11 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>1320 739 799 448 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>573 334 874 522 0 0 1536 937 </string>
+	<string>207 138 650 442 0 0 1792 1097 </string>
+	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -568,6 +576,8 @@
 			<string>2BBCB53A-8773-44D9-9EDC-ED3711F9EA92</string>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
+			<key>Icon</key>
+			<integer>1</integer>
 			<key>Idle Code</key>
 			<integer>0</integer>
 			<key>Jobs to Ignore</key>
@@ -961,21 +971,25 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {1536, 960}}</string>
+		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{269, 595}</string>
+		<string>{388, 756}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>BCEE3B2C-A88F-4D25-9FED-B238A9883113</string>
+	<key>NoSyncLastTipTime</key>
+	<real>611970274.54630995</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>4</integer>
+	<integer>6</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
 	<integer>0</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
-	<real>611958639.38580406</real>
+	<real>612056658.94240606</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
+	<true/>
+	<key>NoSyncPermissionToShowTip</key>
 	<true/>
 	<key>NoSyncRecordedVariables</key>
 	<dict>
@@ -1685,6 +1699,11 @@
 	</dict>
 	<key>NoSyncTipOfTheDayEligibilityBeganTime</key>
 	<real>611785839.38559997</real>
+	<key>NoSyncTipsToNotShow</key>
+	<array>
+		<string>000</string>
+		<string>0000</string>
+	</array>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
@@ -1746,6 +1765,10 @@
 	<integer>5</integer>
 	<key>TabViewType</key>
 	<integer>0</integer>
+	<key>ToolbeltTools</key>
+	<array>
+		<string>Command History</string>
+	</array>
 	<key>VisualIndicatorForEsc</key>
 	<false/>
 	<key>iTerm Version</key>
