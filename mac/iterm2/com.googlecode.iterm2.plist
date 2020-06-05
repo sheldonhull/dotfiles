@@ -21,7 +21,7 @@
 	<key>CloseBookmarksWindowAfterOpening</key>
 	<true/>
 	<key>Command</key>
-	<string></string>
+	<string>/usr/local/bin/zsh</string>
 	<key>Custom Color Presets</key>
 	<dict>
 		<key>Glacier</key>
@@ -264,7 +264,7 @@
 		</dict>
 	</dict>
 	<key>HapticFeedbackForEsc</key>
-	<false/>
+	<true/>
 	<key>HideTab</key>
 	<false/>
 	<key>Hotkey</key>
@@ -331,7 +331,7 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>496 499 799 448 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>2148 529 1050 719 0 0 3440 1417 </string>
+	<string>453 204 900 463 0 0 3440 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92_selection</key>
@@ -912,7 +912,7 @@
 			<key>Normal Font</key>
 			<string>JetBrainsMonoNerdFontComplete-Regular 13</string>
 			<key>Open Toolbelt</key>
-			<false/>
+			<true/>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -950,7 +950,7 @@
 			<key>Send New Output Alert</key>
 			<false/>
 			<key>Shortcut</key>
-			<string></string>
+			<string>P</string>
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Silence Bell</key>
@@ -1416,6 +1416,8 @@
 				<key>Red Component</key>
 				<real>0.74117648601531982</real>
 			</dict>
+			<key>Automatically Log</key>
+			<false/>
 			<key>BM Growl</key>
 			<true/>
 			<key>Background Color</key>
@@ -1881,7 +1883,7 @@
 			<key>Send New Output Alert</key>
 			<false/>
 			<key>Shortcut</key>
-			<string></string>
+			<string>Z</string>
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Silence Bell</key>
@@ -2211,16 +2213,16 @@
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
-		<string>{{0, 0}, {3440, 1440}}</string>
+		<string>{{0, 0}, {1792, 1120}}</string>
 		<key>topLeft</key>
-		<string>{277, 1081}</string>
+		<string>{575, 916}</string>
 	</dict>
 	<key>NoSyncInstallationId</key>
 	<string>BCEE3B2C-A88F-4D25-9FED-B238A9883113</string>
 	<key>NoSyncLastTipTime</key>
-	<real>612468558.02208495</real>
+	<real>612744933.30027497</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>18</integer>
+	<integer>21</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -2957,12 +2959,17 @@
 	<real>611785839.38559997</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
+		<string>0003</string>
+		<string>0000</string>
+		<string>0004</string>
 		<string>0001</string>
 		<string>000</string>
+		<string>0005</string>
 		<string>0002</string>
-		<string>0000</string>
-		<string>0003</string>
+		<string>0006</string>
 	</array>
+	<key>OnlyWhenMoreTabs</key>
+	<false/>
 	<key>OpenArrangementAtStartup</key>
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
@@ -3002,6 +3009,10 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/sheldonhull/git/sheldonhull/dotfiles/mac/iterm2</string>
+	<key>PromptOnQuit</key>
+	<false/>
+	<key>QuitWhenAllWindowsClosed</key>
+	<false/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
@@ -3011,7 +3022,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-05-29T00:24:48Z</date>
+	<date>2020-06-01T15:37:22Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -3033,7 +3044,7 @@
 		<string>Command History</string>
 	</array>
 	<key>VisualIndicatorForEsc</key>
-	<false/>
+	<true/>
 	<key>iTerm Version</key>
 	<string>3.3.10</string>
 </dict>

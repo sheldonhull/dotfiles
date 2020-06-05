@@ -1,5 +1,5 @@
 {
-    "theme": "light",
+    "theme": "dark",
     "snippet": {
         "expanded": false,
         "newSnippetPrivate": true,
@@ -15,10 +15,6 @@
     "logger": {
         "level": "debug"
     },
-    "proxy": {
-        "enable": true,
-        "address": "socks://localhost:7000"
-    },
     "shortcuts": {
         "keyShortcutForSearch": "CMD+F",
         "keyNewGist": "CommandOrControl+N",
@@ -29,11 +25,5 @@
         "keyDashboard": "CommandOrControl+D",
         "keyEditorExit": "CommandOrControl+Escape",
         "keySyncGists": "CommandOrControl+R"
-    },
-    "enterprise": {
-        "enable": false,
-        "host": "github_enterprise_host",
-        "token": "token_with_gist_enabled",
-        "avatarUrl": "optional_avatar_url"
     }
 }
