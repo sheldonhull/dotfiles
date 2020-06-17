@@ -11,7 +11,7 @@ Write-Host "configuring alias for terraform"
 $Profiles.ForEach{ $p = $_; New-Alias "tf" "terraform" -ErrorAction SilentlyContinue | Out-File -FilePath $p }
 
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-Install-Module InvokeBuild, PSFramework, AWS.Tools.Installer, Set-PSEnv -Confirm:$false -Force
+Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv','PSScriptAnalyzer' -Confirm:$false -Force
 Install-Module PSReadline -Confirm:$false -AllowPrerelease -Force
 
 $ProfileContent = Get-Content ./profile.ps1 -Raw
