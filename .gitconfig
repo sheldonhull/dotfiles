@@ -9,6 +9,6 @@
 
 # Ensure Git Town Sync Is Available
 [alias]
-    quickcommit = !git commit -am"[wip]" && git town sync
+    quickcommit = !git commit -am"[wip] $(gitversion /showvariable FullSemVer)" && git town sync
     pushf = !git push --force-with-lease
     fixup = !git commit -a --amend --no-edit
