@@ -1,4 +1,6 @@
 Import-Module PSReadLine
+Import-CommandSuite
+
 
 Set-PSReadLineOption -EditMode Emacs
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
