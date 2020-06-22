@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Actions</key>
+	<array>
+		<dict>
+			<key>action</key>
+			<integer>38</integer>
+			<key>parameter</key>
+			<string>micro ~/git/sheldonhull/ansible-sheldonhull/config/homebrew.config.yml</string>
+			<key>title</key>
+			<string>OpenHomeBrew</string>
+		</dict>
+	</array>
 	<key>AppleAntiAliasingThreshold</key>
 	<integer>1</integer>
 	<key>ApplePressAndHoldEnabled</key>
@@ -335,7 +346,7 @@
 	<key>NSWindow Frame SUUpdateAlert</key>
 	<string>586 541 620 392 0 0 1792 1097 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1973 242 1146 671 0 0 3440 1417 </string>
+	<string>453 204 1138 1023 0 0 3440 1417 </string>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92_selection</key>
@@ -2417,9 +2428,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>BCEE3B2C-A88F-4D25-9FED-B238A9883113</string>
 	<key>NoSyncLastTipTime</key>
-	<real>614034647.60657001</real>
+	<real>614214329.33892703</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>48</integer>
+	<integer>50</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3160,9 +3171,11 @@
 		<string>0000</string>
 		<string>0010</string>
 		<string>0008</string>
+		<string>0017</string>
 		<string>0007</string>
 		<string>0003</string>
 		<string>0013</string>
+		<string>0016</string>
 		<string>0006</string>
 		<string>0002</string>
 		<string>000</string>
@@ -3173,7 +3186,7 @@
 		<string>0011</string>
 		<string>0015</string>
 		<string>0014</string>
-		<string>0016</string>
+		<string>0018</string>
 	</array>
 	<key>NoSyncToolbeltProportions</key>
 	<dict>
@@ -3253,7 +3266,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-06-16T21:10:47Z</date>
+	<date>2020-06-18T21:44:29Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
@@ -3278,6 +3291,7 @@
 	<array>
 		<string>Command History</string>
 		<string>Notes</string>
+		<string>Actions</string>
 	</array>
 	<key>VisualIndicatorForEsc</key>
 	<true/>

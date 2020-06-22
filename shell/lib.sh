@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-
 ###
 # some bash library helpers
 # @author Adam Eivy https://github.com/atomantic/dotfiles

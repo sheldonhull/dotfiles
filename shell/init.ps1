@@ -4,6 +4,7 @@ $Profiles = @(
     $Profile
     '/root/.config/powershell/Microsoft.VSCode_profile.ps1'
     '/home/codespace/.config/powershell/Microsoft.PowerShell_profile.ps1'
+    '/home/codespace/.config/powershell/Microsoft.PowerShell_profile.ps1'
 )
 $Profiles.ForEach{ New-Item -Path $_ -ItemType File -Force -ErrorAction SilentlyContinue -ErrorVariable err }
 
@@ -13,6 +14,7 @@ $Profiles.ForEach{
     try
     {
         $p = $_; New-Alias "tf" "terraform" -ErrorAction SilentlyContinue | Out-File -FilePath $p
+        $p = $_; New-Alias "ib" "Invoke-Build" -ErrorAction SilentlyContinue | Out-File -FilePath $p
     }
     catch
     {
