@@ -344,9 +344,9 @@
 	<key>NSWindow Frame NSNavPanelAutosaveName</key>
 	<string>496 499 799 448 0 0 1792 1097 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>586 541 620 392 0 0 1792 1097 </string>
+	<string>1389 768 620 392 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>453 204 1138 1023 0 0 3440 1417 </string>
+	<string>-1117 156 900 817 -1344 156 1344 817 </string>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_2BBCB53A-8773-44D9-9EDC-ED3711F9EA92_selection</key>
@@ -2088,7 +2088,7 @@
 			<key>Send New Output Alert</key>
 			<false/>
 			<key>Shortcut</key>
-			<string>Z</string>
+			<string>M</string>
 			<key>Show Status Bar</key>
 			<true/>
 			<key>Silence Bell</key>
@@ -2406,6 +2406,7 @@
 	</array>
 	<key>NoSyncAllAppVersions</key>
 	<array>
+		<string>3.3.12</string>
 		<string>3.3.11</string>
 		<string>3.3.10</string>
 	</array>
@@ -2428,9 +2429,9 @@
 	<key>NoSyncInstallationId</key>
 	<string>BCEE3B2C-A88F-4D25-9FED-B238A9883113</string>
 	<key>NoSyncLastTipTime</key>
-	<real>614214329.33892703</real>
+	<real>616527169.19147599</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>50</integer>
+	<integer>62</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -3167,26 +3168,43 @@
 	<real>611785839.38559997</real>
 	<key>NoSyncTipsToNotShow</key>
 	<array>
-		<string>0004</string>
-		<string>0000</string>
-		<string>0010</string>
-		<string>0008</string>
 		<string>0017</string>
-		<string>0007</string>
-		<string>0003</string>
+		<string>0029</string>
+		<string>0001</string>
 		<string>0013</string>
-		<string>0016</string>
+		<string>0025</string>
+		<string>0021</string>
+		<string>0033</string>
 		<string>0006</string>
+		<string>0018</string>
 		<string>0002</string>
+		<string>0014</string>
+		<string>0026</string>
+		<string>0010</string>
+		<string>0022</string>
 		<string>000</string>
+		<string>0034</string>
+		<string>0030</string>
+		<string>0007</string>
+		<string>0019</string>
+		<string>0003</string>
+		<string>0015</string>
+		<string>0027</string>
+		<string>0011</string>
+		<string>0023</string>
+		<string>0031</string>
+		<string>0008</string>
+		<string>0004</string>
+		<string>0016</string>
+		<string>0028</string>
+		<string>0000</string>
 		<string>0012</string>
+		<string>0024</string>
+		<string>0020</string>
+		<string>0032</string>
 		<string>0009</string>
 		<string>0005</string>
-		<string>0001</string>
-		<string>0011</string>
-		<string>0015</string>
-		<string>0014</string>
-		<string>0018</string>
+		<string>0035</string>
 	</array>
 	<key>NoSyncToolbeltProportions</key>
 	<dict>
@@ -3194,15 +3212,21 @@
 		<array>
 			<dict>
 				<key>heightAsFraction</key>
-				<real>0.5</real>
+				<real>0.41405269761606023</real>
 				<key>name</key>
 				<string>Command History</string>
 			</dict>
 			<dict>
 				<key>heightAsFraction</key>
-				<real>0.5</real>
+				<real>0.36323713927227103</real>
 				<key>name</key>
 				<string>Notes</string>
+			</dict>
+			<dict>
+				<key>heightAsFraction</key>
+				<real>0.22271016311166875</real>
+				<key>name</key>
+				<string>Actions</string>
 			</dict>
 		</array>
 	</dict>
@@ -3212,6 +3236,8 @@
 	<false/>
 	<key>OpenNoWindowsAtStartup</key>
 	<false/>
+	<key>PasteTabToStringTabStopSize</key>
+	<integer>4</integer>
 	<key>PointerActions</key>
 	<dict>
 		<key>Button,1,1,,</key>
@@ -3250,9 +3276,9 @@
 	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
 	<true/>
 	<key>PromptOnQuit</key>
-	<true/>
+	<false/>
 	<key>PromptOnQuitEvenIfThereAreNoWindows</key>
-	<true/>
+	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
 	<false/>
 	<key>RestoreWindowContents</key>
@@ -3266,11 +3292,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-06-18T21:44:29Z</date>
+	<date>2020-07-15T17:51:34Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateGroupIdentifier</key>
-	<integer>364757155</integer>
+	<integer>2637630269</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SavePasteHistory</key>
@@ -3289,8 +3315,6 @@
 	<integer>0</integer>
 	<key>ToolbeltTools</key>
 	<array>
-		<string>Command History</string>
-		<string>Notes</string>
 		<string>Actions</string>
 	</array>
 	<key>VisualIndicatorForEsc</key>
@@ -3298,6 +3322,6 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.11</string>
+	<string>3.3.12</string>
 </dict>
 </plist>
