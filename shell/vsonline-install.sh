@@ -21,23 +21,23 @@ echo "eval ""$(starship init bash)""" >> ~/.bashrc && source ~/.bashrc
 bot "initializing"
 starship init bash
 
-apt install curl -y
+sudo apt install curl -y
 echo "completed setup of starship.rs"
 
 echo "installing fonts"
 curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true --output "src/glyphs/JetBrainsMono NF.ttf"
 
 
-pwsh ./init.ps1
+sudo pwsh ./init.ps1
 
-chmod +x ./install-git-town.sh
-chmod +x ./install-powershell.sh
-chmod +x ./install-terraform.sh
-chmod +x ./install-gitversion.sh
+sudo chmod +x ./install-git-town.sh
+sudo chmod +x ./install-powershell.sh
+sudo chmod +x ./install-terraform.sh
+sudo chmod +x ./install-gitversion.sh
 
 
-bash ./install-git-town.sh
+sudo bash ./install-git-town.sh
 # bash ./install-powershell.sh
-bash ./install-gitversion.sh
+sudo bash ./install-gitversion.sh
 
 ok "finished with dotfiles"

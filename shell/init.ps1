@@ -4,11 +4,9 @@ $Profiles = @(
     $Profile
     '/root/.config/powershell/Microsoft.VSCode_profile.ps1'
     '/home/codespace/.config/powershell/Microsoft.PowerShell_profile.ps1'
-    '/home/codespace/.config/powershell/Microsoft.PowerShell_profile.ps1'
+    '/home/codespace/.config/powershell/Microsoft.VSCode_profile.ps1'
 )
 $Profiles.ForEach{ New-Item -Path $_ -ItemType File -Force -ErrorAction SilentlyContinue -ErrorVariable err }
-
-
 Write-Host "configuring alias for terraform"
 $Profiles.ForEach{
     try
@@ -21,15 +19,14 @@ $Profiles.ForEach{
         Write-Warning $_.Exception.InnerException.Message
     }
 }
-
 Write-Host "Installing Standard Modules"
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv', 'PSScriptAnalyzer','Pester' -Confirm:$false -Force
-Install-Module PSReadline -Confirm:$false -AllowPrerelease -Force
-Install-Module EditorServicesCommandSuite -Scope CurrentUser -AllowPrerelease -Force
+Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv', 'PSScriptAnalyzer','Pester' -Confirm:$false -Force  -Scope AllUsers
+Install-Module PSReadline -Confirm:$false -AllowPrerelease -Force -Scope AllUsers
+Install-Module EditorServicesCommandSuite -Scope AllUsers -AllowPrerelease -Force
 
-
-$ProfileContent = Get-Content ./profile.ps1 -Raw
+#$ProfileContent = Get-Content ./.devcontainer/profile.ps1 -Raw
+$ProfileContent = Get-Content (Join-Path $PSScriptRoot 'profile.ps1') -Raw
 $Profiles.ForEach{
     try
     {
