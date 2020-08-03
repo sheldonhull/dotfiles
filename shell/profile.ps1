@@ -184,3 +184,7 @@ Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 
 Invoke-Expression (@(&"/usr/local/bin/starship" init powershell --print-full-init) -join "`n")
 New-Alias 'tf' -Value 'terraform' -Force -ErrorAction SilentlyContinue
+
+# GO: Make tools work in console sessions
+# This should work for windows + macOS with the variables only showing up for one or the other
+$ENV:GOROOT = "$ENV:HOME$($ENV:USERPROFILE)/go"
