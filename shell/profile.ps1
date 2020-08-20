@@ -186,5 +186,17 @@ Invoke-Expression (@(&"/usr/local/bin/starship" init powershell --print-full-ini
 New-Alias 'tf' -Value 'terraform' -Force -ErrorAction SilentlyContinue
 
 # GO: Make tools work in console sessions
-# This should work for windows + macOS with the variables only showing up for one or the other
-$ENV:GOROOT = "$ENV:HOME$($ENV:USERPROFILE)/go"
+$ENV:GOPATH = "$ENV:HOME$($ENV:USERPROFILE)/go"
+
+if ($PSVersionTable.OS -match 'Darwin') {
+    $ENV:GOROOT = "/usr/local/opt/go/libexec"
+    $ENV:PATH += "$ENV:PATH:$(go env GOPATH)/bin"
+    $ENV:GOBIN = "$(go env GOPATH)/bin"
+}
+
+Write-Verbose "Setting up AWS-VAULT default credentials"
+$ENV:AWS_VAULT_BACKEND='file'
+$ENV:AWS_SESSION_TOKEN_TTL='1h'
+$ENV:AWS_CHAINED_SESSION_TOKEN_TTL='1h'
+$ENV:AWS_FEDERATION_TOKEN_TTL='1h'
+$ENV:AWS_ASSUME_ROLE_TTL='1h'
