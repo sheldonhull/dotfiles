@@ -161,7 +161,7 @@ Register-ArgumentCompleter -Native -CommandName 'git-town' -ScriptBlock {
 Import-Module PSReadLine
 Import-CommandSuite
 
-
+Set-PSReadLineKeyHandler -Key Tab -Function MenuComplete
 Set-PSReadLineOption -EditMode Windows
 Set-PSReadLineOption -HistorySearchCursorMovesToEnd
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
