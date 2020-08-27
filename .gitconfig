@@ -10,6 +10,7 @@
 
 # Ensure Git Town Sync Is Available
 [alias]
-    quickcommit = ! pwsh -noprofile -nologo -c 'git status' # commit -am\"[wip] $(dotnet-gitversion /showvariable FullSemVer)\" && git town sync'
+    quickcommit = !pwsh -noprofile -nologo -c 'git commit -am\"[wip] $(dotnet-gitversion /showvariable FullSemVer)\" && git town sync'
     pushf = !git push --force-with-lease
     fixup = !git commit -a --amend --no-edit
+	logline = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
