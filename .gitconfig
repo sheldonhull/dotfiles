@@ -4,7 +4,7 @@
 [pull]
 	rebase = True
 	autosquash = True
-	excludesfile = /Users/sheldonhull/.gitignore
+	excludesfile = ~/.gitignore
 [push]
 	followTags = True
 

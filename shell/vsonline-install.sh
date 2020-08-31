@@ -28,16 +28,19 @@ echo "installing fonts"
 curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true --output "src/glyphs/JetBrainsMono NF.ttf"
 
 
+bot "initialing powershell default profile settings"
+
 sudo pwsh ./init.ps1
 
-sudo chmod +x ./install-git-town.sh
-sudo chmod +x ./install-powershell.sh
-sudo chmod +x ./install-terraform.sh
-sudo chmod +x ./install-gitversion.sh
-
-
+bot "starting install of git town"
 sudo bash ./install-git-town.sh
-# bash ./install-powershell.sh
+bot "starting install of gitversion"
 sudo bash ./install-gitversion.sh
+bot "Starting Python Precommit framework install"
+bash ./install-precommit.sh
+
+bot "Installing Linuxbrew, but not with sudo as it complains vigorously about this"
+bot "Please note that this does take a while on a build, but benefits with easier extra tool installs such as 'brew install tfenv'"
+bash ./install-linuxbrew.sh
 
 ok "finished with dotfiles"
