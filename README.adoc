@@ -22,6 +22,9 @@ curl -s https://raw.githubusercontent.com/sheldonhull/dotfiles/master/mac/bootst
 
 ==
 
+== Contributing
+
+. Make sure to set shell script as executable before commit with `chmod -R +x  ./shell`
 
 
 == Resources/Credits:
