@@ -3,16 +3,26 @@
   connection: local
   vars:
     the_user: "sheldonhull"
+  pre_tasks:
+    - include_vars: "{{ item }}"
+      with_fileglob:
+        - "{{ playbook_dir }}/config.yml"
+      tags: ['always']
   roles:
-    - role: nioniosfr.github_release
-      vars:
-        ghr_org_name: gruntwork-io
-        ghr_app_name: fetch
-        ghr_app_version: latest
-        ghr_app_archive: fetch_linux_amd64
-        ghr_app_tmp_dir: ~/downloads # Store the downloaded archive in a more persistent path than '/tmp'
-        ghr_app_is_binary: true
-        ghr_app_binary_dest: /usr/local/bin # Installs in a common user path
+    #https://galaxy.ansible.com/nioniosfr/github_release
+    # - role: nioniosfr.github_release
+    #   vars:
+    #     ghr_org_name: gruntwork-io
+    #     ghr_app_name: fetch
+    #     ghr_app_version: "latest"
+    #     ghr_app_releases_endpoint: latest
+    #     ghr_app_tmp_dir: ./downloads # Store the downloaded archive in a more persistent path than '/tmp'
+    #     ghr_app_is_binary: true
+    - role: markosamuli.linuxbrew
+
+       # ghr_app_binary_dest: /usr/local/bin # Installs in a common user path
+        #ghr_app_cleanup_after: true
+     #   ghr_app_archive: fetch_linux_amd64
 
     # - hosts: localhost
     #   roles:

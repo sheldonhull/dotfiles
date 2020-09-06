@@ -13,9 +13,13 @@ RUN if [ "${INSTALL_DOCKER}" = "true" ]; then \
     fi \
     && rm -rf /var/lib/apt/lists/* /tmp/library-scripts/
 
-USER codespace
-
 # ** [Optional] Uncomment this section to install additional packages. **
-RUN curl https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get -qqy update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -qqy install --no-install-recommends  python3-pip python3-dev python3-setuptools python3-apt \
+    && $(which python3.8) -m pip install --upgrade pip \
+    && CFLAGS=-Qunused-arguments CPPFLAGS=-Qunused-arguments pip3 install --user ansible
+   # && curl https://raw.githubusercontent.com/neillturner/omnibus-ansible/master/ansible_install.sh | sudo bash \
+    && apt-get clean \
+    && rm -rf ~/.cache/pip/*
+
+USER codespace
