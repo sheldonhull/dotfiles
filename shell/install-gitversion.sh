@@ -19,5 +19,6 @@ sudo mv gitversion /usr/local/bin
 
 sudo rm $tarball
 echo ">>>> gitversion version: $(~/gitversion /version)"
-
+echo "Trying to install dotnet tools version"
+dotnet tool install --global GitVersion.Tool
 # https://github.com/GitTools/GitVersion/releases/download/5.3.6/gitversion-debian.9-x64-5.3.6.tar.gz
