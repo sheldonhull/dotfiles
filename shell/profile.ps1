@@ -184,7 +184,7 @@ Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 
 Invoke-Expression (@(&'/usr/local/bin/starship' init powershell --print-full-init) -join "`n")
 New-Alias 'tf' -Value 'terraform' -Force -ErrorAction SilentlyContinue
-
+New-Alias 'ib' 'Invoke-Build' -ErrorAction SilentlyContinue
 # GO: Make tools work in console sessions
 $ENV:GOPATH = "$ENV:HOME$($ENV:USERPROFILE)/go"
 

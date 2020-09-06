@@ -1,42 +1,32 @@
-Write-Host "Setting profile for default pwsh session"
+Write-Host 'Setting profile for default pwsh session'
 
 $Profiles = @(
     $Profile
-    '/root/.config/powershell/Microsoft.VSCode_profile.ps1'
-    '/home/codespace/.config/powershell/Microsoft.PowerShell_profile.ps1'
-    '/home/codespace/.config/powershell/Microsoft.VSCode_profile.ps1'
 )
-$Profiles.ForEach{ New-Item -Path $_ -ItemType File -Force -ErrorAction SilentlyContinue -ErrorVariable err }
-Write-Host "configuring alias for terraform"
-$Profiles.ForEach{
-    try
-    {
-        $p = $_; New-Alias "tf" "terraform" -ErrorAction SilentlyContinue | Out-File -FilePath $p
-        $p = $_; New-Alias "ib" "Invoke-Build" -ErrorAction SilentlyContinue | Out-File -FilePath $p
-    }
-    catch
-    {
-        Write-Warning $_.Exception.InnerException.Message
-    }
-}
-Write-Host "Installing Standard Modules"
+
+Write-Host 'Installing Standard Modules'
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
-Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv', 'PSScriptAnalyzer','Pester' -Confirm:$false -Force  -Scope AllUsers
+Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv', 'PSScriptAnalyzer', 'Pester' -Confirm:$false -Force -Scope AllUsers
 Install-Module PSReadline -Confirm:$false -AllowPrerelease -Force -Scope AllUsers
 Install-Module EditorServicesCommandSuite -Scope AllUsers -AllowPrerelease -Force
 
 #$ProfileContent = Get-Content ./.devcontainer/profile.ps1 -Raw
 $ProfileContent = Get-Content (Join-Path $PSScriptRoot 'profile.ps1') -Raw
-$Profiles.ForEach{
-    try
-    {
-        $p = $_; $ProfileContent | Out-File $p -Force -ErrorAction SilentlyContinue
+
+switch -regex ($PSVersionTable.OS) {
+    'Windows' {
+        $Profiles += $Profile.Replace('Microsoft.PowerShell_profile', 'Microsoft.VSCode_profile')
+        $Profiles += $Profile.Replace('Microsoft.VSCode_profile', 'Microsoft.PowerShell_profile')
     }
-    catch
-    {
-        Write-Warning $_.Exception.InnerException.Message
+    'Darwin' {
+        $Profiles += $Profile.Replace('Microsoft.PowerShell_profile', 'Microsoft.VSCode_profile')
+        $Profiles += $Profile.Replace('Microsoft.VSCode_profile', 'Microsoft.PowerShell_profile')
+
+    }
+    'Linux' {
+        $Profiles += '/root/.config/powershell/Microsoft.VSCode_profile.ps1'
+        $Profiles += "${HOME}/.config/powershell/Microsoft.PowerShell_profile.ps1"
+        $Profiles += "${HOME}/.config/powershell/Microsoft.VSCode_profile.ps1"
     }
 }
-
-
-$err | Write-Warning
+($Profiles | Select-Object -Unique).ForEach{ New-Item -Path $_ -ItemType File -Value $ProfileContent -Force -ErrorAction SilentlyContinue -ErrorVariable err}

@@ -1,0 +1,38 @@
+---
+- hosts: localhost
+  connection: local
+  vars:
+    the_user: "sheldonhull"
+  roles:
+    - role: nioniosfr.github_release
+      vars:
+        ghr_org_name: gruntwork-io
+        ghr_app_name: fetch
+        ghr_app_version: latest
+        ghr_app_archive: fetch_linux_amd64
+        ghr_app_tmp_dir: ~/downloads # Store the downloaded archive in a more persistent path than '/tmp'
+        ghr_app_is_binary: true
+        ghr_app_binary_dest: /usr/local/bin # Installs in a common user path
+
+    # - hosts: localhost
+    #   roles:
+    #     - role: nioniosfr.github_release
+    #       vars:
+    #         ghr_org_name: "stedolan"
+    #         ghr_app_name: "jq"
+    #         ghr_app_version: "1.6"
+    #         ghr_app_releases_endpoint: "{{ ghr_app_name }}-{{ ghr_app_version }}"
+    #         ghr_app_archive: "{{ ghr_app_name }}-linux64"
+    #         ghr_app_is_binary: true
+
+    # - hosts: localhost
+    #   roles:
+    #     - role: nioniosfr.github_release
+    #       vars:
+    #         ghr_org_name: "digitalocean"
+    #         ghr_app_name: "doctl"
+    #         ghr_app_version: "1.18.0"
+    #         ghr_app_binary_dest: "/usr/local/bin" # Installs in a common user path
+    #         ghr_app_configure_system_path: false # Do not manipulate the system path for users
+    #         ghr_app_tmp_dir: "/mnt/nfs_share/downloads" # Change the folder used for the downloads
+    #         ghr_app_cleanup_after: true # Remove both the downloaded file, as well as the system profile.d for `app` if it was already created from a previous run
