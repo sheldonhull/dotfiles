@@ -182,7 +182,19 @@ Set-PSReadLineKeyHandler -Key Alt+f -Function ShellForwardWord
 Set-PSReadLineKeyHandler -Key Alt+B -Function SelectShellBackwardWord
 Set-PSReadLineKeyHandler -Key Alt+F -Function SelectShellForwardWord
 
-Invoke-Expression (@(&'/usr/local/bin/starship' init powershell --print-full-init) -join "`n")
+switch -regex ($PSVersionTable.OS) {
+    'Windows' {
+        Invoke-Expression (@(&starship init powershell --print-full-init) -join "`n")
+    }
+    'Darwin' {
+        Invoke-Expression (@(&'/usr/local/bin/starship' init powershell --print-full-init) -join "`n")
+    }
+    'Linux' {
+        Invoke-Expression (@(&'/usr/local/bin/starship' init powershell --print-full-init) -join "`n")
+    }
+}
+
+
 New-Alias 'tf' -Value 'terraform' -Force -ErrorAction SilentlyContinue
 New-Alias 'ib' 'Invoke-Build' -ErrorAction SilentlyContinue
 # GO: Make tools work in console sessions
