@@ -6,6 +6,7 @@ $Profiles = @(
 
 Write-Host 'Installing Standard Modules'
 Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+$ProgressPreference = 'Ignore'
 Install-Module 'InvokeBuild', 'PSFramework', 'AWS.Tools.Installer', 'Set-PSEnv', 'PSScriptAnalyzer', 'Pester' -Confirm:$false -Force -Scope AllUsers
 Install-Module PSReadline -Confirm:$false -AllowPrerelease -Force -Scope AllUsers
 Install-Module EditorServicesCommandSuite -Scope AllUsers -AllowPrerelease -Force
