@@ -22,6 +22,10 @@ sudo install-gittown.sh
 sudo install-starship.sh
 bot "adding starship to default .bashrc"
 echo "eval ""$(starship init bash)""" >> ~/.bashrc && source ~/.bashrc
+bot "initializing"
+starship init bash
+sudo apt install curl wget tree -y
+echo "completed setup of starship.rs"
 
 echo "installing fonts"
 curl -L https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/JetBrainsMono/Regular/complete/JetBrains%20Mono%20Regular%20Nerd%20Font%20Complete%20Mono.ttf?raw=true --output "src/glyphs/JetBrainsMono NF.ttf"
