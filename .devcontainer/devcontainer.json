@@ -9,8 +9,7 @@
         }
     },
     "settings": {
-        "terminal.integrated.shell.linux": "/bin/bash",
-        "go.useGoProxyToCheckForToolUpdates": false,
+        "go.toolsManagement.checkForUpdates": true,
         "go.useLanguageServer": true,
         "go.gopath": "/go",
         "go.goroot": "/usr/local/go",
@@ -46,12 +45,8 @@
     ],
     // Add the IDs of extensions you want installed when the container is created.
     "extensions": [
-		"GitHub.vscode-pull-request-github",
-		"MS-vsliveshare.vsliveshare",
-		"VisualStudioExptTeam.vscodeintellicode",
-		"vscoss.vscode-ansible",
-		"ms-vscode.powershell-preview"
-	]
+        "GitHub.vscode-pull-request-github",
+    ]
     // Use 'forwardPorts' to make a list of ports inside the container available locally.
     // "forwardPorts": [],
     // Use 'postCreateCommand' to run commands after the container is created.
