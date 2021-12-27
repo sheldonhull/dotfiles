@@ -67,3 +67,9 @@ repos:
         language: system
         pass_filenames: false
         stages: [push]
+      - id: trufflehog
+        name: trufflehog
+        entry: docker run --rm -v ${PWD}:/proj  dxa4481/trufflehog --exclude_paths .trufflehog-exclude --allow .trufflehog-allow.json file:///proj
+        language: system
+        pass_filenames: false
+        stages: [push]
